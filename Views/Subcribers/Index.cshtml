@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Book_kharido.Models.Subcriber>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<partial name="_Partail_Admin" />
+<div class="col-lg-9 col-12 col-lg-9 my-3">
+    <div class="table-container">
+  
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SubName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SubId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SubId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SubId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+    </div>
+</div>
+</div>
+</div>
+

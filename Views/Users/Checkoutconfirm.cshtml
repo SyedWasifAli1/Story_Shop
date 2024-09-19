@@ -1,0 +1,213 @@
+﻿@model Book_kharido.Models.User
+
+
+<!-- Start Hero Section -->
+@* <div class="hero">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-5">
+				<div class="intro-excerpt">
+					<h1>Checkout</h1>
+				</div>
+			</div>
+			<div class="col-lg-7">
+			</div>
+		</div>
+	</div>
+</div>
+ *@
+<!-- End Hero Section -->
+
+
+	<div class="untree_co-section">
+		<div class="container">
+
+			<div class="row">
+
+
+				<div class="col-md-12 ">
+
+					<div class="row mb-5">
+						<div class="col-md-12">
+							<h2 class="h3 mb-3 text-black">Your Order</h2>
+							<div class="p-3 p-lg-5 border bg-white">
+								<table class="table site-block-order-table mb-5">
+									<thead>
+									<th>Product</th>
+									<th>Price / Qty</th>
+									<th>Total</th>
+									</thead>
+									<tbody>
+									@{
+										decimal totalsum = 0;
+										decimal OrderTotal = 0;
+									}
+
+		@if (ViewBag.userid != null)
+		{
+										
+										<h4>Welcome</h4>
+			<h5>User Information:</h5>
+			<p>Name: @ViewBag.user.Name</p>
+			<p>Email: @ViewBag.user.Email</p>
+			<p>
+			
+								KiloMeters : <strong>@ViewBag.user.TownsAdress.KoloMeter </strong>
+										km
+
+			</p>
+			<!-- Add other user details as needed -->
+
+			<h2>Orders:</h2>
+				
+				<tbody>
+					@foreach (var order in ViewBag.orders)
+					{
+						<tr>
+@* 							<td>@order.Product.ProductName</td>
+							<td>@order.Quantity</td>
+							<td>@order.Total</td> *@
+							<!-- Add other order details as needed -->
+						</tr>
+												var divide = order.Product.ProductPrice / 100;
+												var dicount = order.Product.ProductDiscount * divide;
+												var price = order.Product.ProductPrice - dicount;
+												var ordertotal = order.Total;
+												totalsum += ordertotal;
+
+												<tr>
+													<td>@order.Product.ProductName</td>
+												<td>@ordertotal <strong class="mx-2">x</strong> @order.Quantity</td>
+													<td>@order.Total</td>
+												</tr>
+					}
+					
+
+											<tr>
+											<td class="text-black font-weight-bold"></td>
+
+												<td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
+												<td class="text-black">@totalsum</td>
+											</tr>
+										
+											<tr>
+											<td class="text-black font-weight-bold"></td>
+
+												<td class="text-black font-weight-bold"><strong>Delivery fee</strong></td>
+												<td class="text-black font-weight-bold">
+
+											@{
+													if (ViewBag.user.TownsAdress.DeliveryFee != 0)
+													{
+
+													<strong>@ViewBag.user.TownsAdress.DeliveryFee</strong>
+													}
+													else
+													{
+													<strong>Free Delivery</strong>
+														
+													}
+
+				var total = totalsum + ViewBag.user.TownsAdress.DeliveryFee;
+											}
+												</td>
+										
+											</tr>
+
+											<tr>
+												<td class="text-black font-weight-bold"></td>
+
+												<td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+											<td class="text-black font-weight-bold"><strong>@total</strong></td>
+											</tr>
+										
+
+				</tbody>
+			
+
+			@* <h2>Delivery Fee:</h2>
+			<p>Delivery Fee: @ViewBag.user.TownsAdress.DeliveryFee</p>
+			<p>KoloMeter: @ViewBag.user.TownsAdress.KoloMeter</p>
+ *@
+			<!-- Add other delivery fee details as needed -->
+		}
+		else
+		{
+			<p>User session or details not found. Redirecting to home page...</p>
+		}
+
+								</table>
+
+								<div class="border p-3 mb-3">
+									<h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">Direct Bank Transfer</a></h3>
+
+									<div class="collapse" id="collapsebank">
+										<div class="py-2">
+											<p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+										</div>
+									</div>
+								</div><div class="border p-3 mb-3">
+									<button type="button" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalChoice">Delivery</button>
+
+									<div class="modal modal-alert  py-5" style="margin-top :100px;" tabindex="-1" role="dialog" id="modalChoice">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content my-5 Modal-custom rounded-3 shadow">
+												<div class="modal-body p-4 text-center">
+													@* <h5 class=" py-3"><strong>@totalsum</strong></h5> *@
+													@* <form method="post" asp-action="AdminOrderDelivered"> *@
+													<input name="date" type="date" class="form-control" />
+													<div class="modal-footer flex-nowrap py-4">
+														<a class="btn btn-sm btn-link fs-6 text-decoration-none  me-3 rounded-0 border-end text-white" data-bs-dismiss="modal">Cancel</a>
+														<button class="btn btn-sm btn-link fs-6 text-decoration-none  m-0 rounded-0 text-white" type="submit">Visa</button>
+													</div>
+
+
+													@* </form> *@
+
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+
+
+
+
+								<div class="form-group">
+							
+								<a asp-action="PlaceOrder" asp-controller="Users" class="btn btn-primary" asp-route-id="@ViewBag.userid"> Place Order</a>
+									<button type="button" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalChoice1">Delivery</button>
+
+									<div class="modal modal-alert  py-5" style="margin-top :100px;" tabindex="-1" role="dialog" id="modalChoice1">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content my-5 Modal-custom rounded-3 shadow">
+												<div class="modal-body p-4 text-center">
+													@* <h5 class=" py-3"><strong>@totalsum</strong></h5> *@
+													@* <form method="post" asp-action="AdminOrderDelivered"> *@
+													<input name="date" type="date" class="form-control" />
+													<div class="modal-footer flex-nowrap py-4">
+														<a class="btn btn-sm btn-link fs-6 text-decoration-none  me-3 rounded-0 border-end text-white" data-bs-dismiss="modal">Cancel</a>
+														<button class="btn btn-sm btn-link fs-6 text-decoration-none  m-0 rounded-0 text-white" type="submit">Visa</button>
+													</div>
+
+
+													@* </form> *@
+
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>

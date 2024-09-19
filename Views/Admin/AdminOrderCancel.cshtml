@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Book_kharido.Models.Bill>
+
+@{
+    ViewData["Title"] = "AdminOrderCancel";
+}
+
+<h1>AdminOrderCancel</h1>
+
+<partial name="_Partail_Admin" />
+<div class="col-lg-9 col-12 col-lg-9 my-3">
+    <div class="table-container">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BillCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model) {
+                if (item.Status == 5)
+                    {
+                        <tr>
+                            <td>
+                                @{
+                                    string encodedBillCode = Uri.EscapeDataString(item.BillCode);
+                                    string qrCodeImage = $"https://api.qrserver.com/v1/create-qr-code/?data={encodedBillCode}&size=200x200";
+                                    ViewBag.QRCodeImage = qrCodeImage;
+                                }
+                                <img src="@ViewBag.QRCodeImage" alt="QR Code" width="50px" height="50px" />
+
+                            </td> 
+                            <td>
+                                @item.User.Name
+                            </td>
+                            <td>
+
+                                Cancel
+                            </td>
+                            <td>
+                                <a asp-action="AdminOrderDetail" asp-route-id="@item.BillId">Details</a>
+                            </td>
+                        </tr>
+                    }
+        }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</div>
+</div>

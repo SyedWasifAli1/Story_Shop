@@ -1,0 +1,105 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+
+/*CUSTOM CSS*/
+/*.discount-tag {
+    background-color: #7ea4b3;*/
+    /* background-color: #fa0909;  */
+    /* Adjust background color as needed */
+    /*color: white;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+
+:root {
+    --background-color: #084c61;
+}*/
+/* Custom styles for this template */
+/*body {
+    padding-top: 56px;
+}
+.ul li a {
+    color: #7ea4b3;
+}
+
+    .ul li a:hover {
+        color: white;
+    }
+.navbar-custom {
+    color: white;
+    background-color: var(--background-color);*/ /* Navbar background color */
+/*}
+.card_button {
+    background-color: #084c61;
+    color: white;
+    width: 100%;
+}
+
+    .card_button:hover {
+        background-color: rgb(0, 0, 0);
+        color: white;
+    }
+.sup {
+ font-size:small;   
+}
+
+
+
+
+.card img {
+    height: 300px;
+    border-bottom:1px solid ;
+}
+
+.card-title {
+    font-size: large;
+}
+
+.card-title1 {
+    font-size: small;
+}
+
+.card {
+    transition: transform 0.3s;
+}
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+.card_button {
+    background-color: #084c61;
+    color: white;
+    width: 100%;
+}
+
+    .card_button:hover {
+        background-color: rgb(0, 0, 0);
+        color: white;
+    }*/

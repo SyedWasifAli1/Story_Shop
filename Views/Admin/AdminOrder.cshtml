@@ -1,0 +1,176 @@
+﻿@model IEnumerable<Book_kharido.Models.Bill>
+
+@{
+    ViewData["Title"] = "AdminOrder";
+}
+
+<partial name="_Partail_Admin" />
+<div class="col-lg-9 col-12 col-lg-9 my-3">
+    <div class="table-container">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BillCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @* @{
+            var date = DateTime.Now.ToString();
+
+        } *@
+@foreach (var item in Model) {
+            var itemdate = item.Ordertime;
+
+            if (item.Status == 1)
+            {
+
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BillCode)
+                        @{
+                            string encodedBillCode = Uri.EscapeDataString(item.BillCode);
+                            string qrCodeImage = $"https://api.qrserver.com/v1/create-qr-code/?data={encodedBillCode}&size=200x200";
+                            ViewBag.QRCodeImage = qrCodeImage;
+                        }
+                        <img src="@ViewBag.QRCodeImage" alt="QR Code" width="50px" height="50px" />
+
+                    </td>
+                    <td>
+                        @item.User.Name
+                    </td>
+                    <td>
+
+                        Pending
+                    </td>
+                    <td>
+                @if (DateTime.Now <= itemdate)
+                        {
+                        <b>Pending</b>
+                       
+                        }
+                        else
+                        {
+                            <a asp-action="AdminOrderAccpet" asp-route-id="@item.BillId">Accept</a>
+                            
+                        }
+                        <a asp-action="AdminOrderDetail" asp-route-id="@item.BillId">Details</a> 
+                        <a asp-action="OrderedDelete" asp-route-id="@item.BillId">Delete</a>
+
+                    </td>
+                </tr>
+
+            }
+           else if (item.Status == 2)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BillCode)
+                                @{
+                                    string encodedBillCode = Uri.EscapeDataString(item.BillCode);
+                                    string qrCodeImage = $"https://api.qrserver.com/v1/create-qr-code/?data={encodedBillCode}&size=200x200";
+                                    ViewBag.QRCodeImage = qrCodeImage;
+                                }
+                                <img src="@ViewBag.QRCodeImage" alt="QR Code" width="50px" height="50px" />
+
+                    </td>
+                    <td>
+                        @item.User.Name
+                    </td>
+                    <td>
+                        Order
+                    </td>
+                    <td>
+                                
+                                <button type="button" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalChoice">Delivery</button>
+                                
+                                @* <p> @DateTime.Now.ToString()  : After Accept you Order</p> *@
+
+                                <!-- Modal -->
+
+                                <div class="modal modal-alert  py-5" style="margin-top :100px;" tabindex="-1" role="dialog" id="modalChoice">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content my-5 Modal-custom rounded-3 shadow">
+                                            <div class="modal-body p-4 text-center">
+                                                <h5 class=" py-3">Order Comformation</h5>
+                                                <form method="post" asp-action="AdminOrderDelivered">
+                                                    <input name="id" type="hidden" class="form-control" value="@item.BillId" />
+                                                    <input name="date" type="date" class="form-control" />
+                                            <div class="modal-footer flex-nowrap py-4">
+                                                <a class="btn btn-sm btn-link fs-6 text-decoration-none  me-3 rounded-0 border-end text-white" data-bs-dismiss="modal">Cancel</a>
+                                                    <button class="btn btn-sm btn-link fs-6 text-decoration-none  m-0 rounded-0 text-white" type="submit">Delivery</button>
+                                            </div>
+
+
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                        
+                        @* <a asp-action="AdminOrderDelivered" asp-route-id="@item.BillId">Delivery</a> | *@
+                        <a asp-action="AdminOrderDetail" asp-route-id="@item.BillId">Details</a> |
+                    </td>
+                </tr>
+
+            }
+            else if (item.Status == 3)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BillCode)
+                                @{
+                                    string encodedBillCode = Uri.EscapeDataString(item.BillCode);
+                                    string qrCodeImage = $"https://api.qrserver.com/v1/create-qr-code/?data={encodedBillCode}&size=200x200";
+                                    ViewBag.QRCodeImage = qrCodeImage;
+                                }
+                                <img src="@ViewBag.QRCodeImage" alt="QR Code" width="50px" height="50px" />
+
+                    </td>
+                    <td>
+                        @item.User.Name
+                    </td>
+                    <td>
+                        Order
+                    </td>
+                    <td>
+                            Delivered
+                        <a asp-action="AdminOrderDetail" asp-route-id="@item.BillId">Details</a> |
+                    </td>
+                </tr>
+
+            }
+
+        }
+
+    </tbody>
+</table>
+            </div>
+    </div>
+</div>
+
+</div>
+
+
+<partial name="_Partail_Admin" />
+<div class="col-lg-9 col-12 col-lg-9 my-3">
+    <div class="table-container">
+
+            </div>
+    </div>
+</div>
+</div>
+
+

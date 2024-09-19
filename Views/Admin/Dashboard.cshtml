@@ -1,0 +1,244 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<partial name="_Partail_Admin" />
+    <div class="col-lg-9 col-12 col-lg-9 my-3">
+        <div class="table-container">
+        Hii Admin
+        @ViewBag.email
+        </div>
+    </div>
+    </div>
+</div>
+
+
+<div class="container-fluid ">
+  <div class="row">
+    
+    <div class="col-lg-3 col-md-3 d-lg-block d-none   border-end" style="height: 600px;">
+      <h3 class="text-center py-2"><b>DASHBOARD</b> </h3>
+
+      <ul class="navbar-nav ul mx-auto mb-2 mb-lg-0">
+        <li class="nav-item mb-2  ">
+          <a class="nav-link btn card_button rounded-2 " aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+                    <a class="nav-link btn card_button rounded-2"  href="#">Books</a>
+        </li>
+        <li class="nav-item my-2">
+          <a class="nav-link btn card_button rounded-2" href="#">About</a>
+        </li>
+        <li class="nav-item my-2">
+          <a class="nav-link btn card_button rounded-2" href="#">About</a>
+        </li>
+        <li class="nav-item my-2">
+          <a class="nav-link btn card_button rounded-2" href="#">About</a>
+        </li>
+        <li class="nav-item my-2">
+          <a class="nav-link btn card_button rounded-2" href="#">About</a>
+        </li>
+        <li class="nav-item my-2">
+          <a class="nav-link btn card_button rounded-2" href="#">About</a>
+        </li>
+       
+       
+      </ul> 
+    
+  </div>
+
+<div class="col-lg-9 col-12 col-lg-9 my-3">
+  <form>
+      <div class="row">
+        <div class="col-6">
+          <label for="">Book Name</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-6">
+          <label for="">category</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-6">
+          <label for="">writer</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-6">
+          <label for="">Publisher</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-6">
+          <label for="">Page</label>
+          <input type="number" min="10"  class="form-control">
+        </div>
+        <div class="col-6">
+          <label for="">Person of Discount</label>
+          <input type="number" min="1" max="99"class="form-control">
+        </div>
+        <div class="col-6">
+          <label for="">Price</label>
+          <input type="number" min="1"class="form-control">
+        </div>
+       
+        <div class="col-6">
+          <label for="">Quantity</label>
+          <input type="number" min="10" max="100" class="form-control">
+        </div>
+        
+        <div class="col-6">
+          <label for="">Image</label>
+          <input type="file" class="form-control" id="fileInput1">
+          <div>
+              <img height="200px" class="my-2" id="defaultImg" src="book.jpeg" alt="Default Image" width="100px">
+              <img height="200px" class="my-2" id="previewImg1" src="#" alt="Preview Image" width="100px">
+          </div>
+          
+          <!-- JavaScript -->
+          <script>
+              const fileInput1 = document.getElementById('fileInput1');
+              const defaultImg = document.getElementById('defaultImg');
+              const previewImg1 = document.getElementById('previewImg1');
+          
+              fileInput1.addEventListener('change', function() {
+                  const file = this.files[0];
+                  if (file) {
+                      const reader = new FileReader();
+                      reader.onload = function(e) {
+                          previewImg1.src = e.target.result;
+                      }
+                      reader.readAsDataURL(file);
+                  } else {
+                      // If no file selected, display the default image
+                      previewImg1.src = defaultImg.src;
+                  }
+              });
+          </script>
+          
+      
+<!-- HTML -->
+<input type="file"  class="form-control" id="fileInput">
+<img height="200px" class="my-2" id="previewImg" src="book.jpeg" alt="Preview Image">
+
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const previewImg = document.getElementById('previewImg');
+
+    fileInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script> 
+
+        </div>
+        <div class="col-6">
+          <label for="description">Description</label>
+          <textarea name="description" id="description" class="form-control" style="height: 200px; font-size: 16px; padding: 10px;"></textarea>
+      </div>
+      
+             
+      </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+    <div class="col-lg-9 col-12 col-lg-9 my-3">
+      <div class="table-container">
+        <input type="text" id="filterInput" class="form-control mb-3" placeholder="Filter by First Name">
+
+        <table class="table  table-hover ">
+          <thead>
+            <tr>
+
+              <th scope="col">Or_Code</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+              <th scope="col">Handle</th>
+              <th scope="col">Handle</th>
+              <th scope="col">Handle</th>
+       
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><img src="download.png" alt=""  style="height: 50px;width: 50px;"></th>
+              <td>BookName</td>
+              <td>category:<br>Publicher<br>:Writer
+                
+              </td>
+              <td scope="row"><img src="book.jpeg" alt=""  style="height: 50px;width: 50px;"></td>
+              <td><b>2000</b>  </td>
+              <td><b>Pending</b>  </td>
+              <td >
+
+                  <button type="button" class="btn text-white " style="background-color: #7ea4b3;">Accept</button>
+                  <button type="button" class="icon_btn"><i class="fa-solid fa-trash"></i></button>
+                  <button type="button" class="icon_btn fl"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+           
+                
+              </td>
+            </tr>
+            <tr>
+              <th scope="row"><img src="download.png" alt=""  style="height: 50px;width: 50px;"></th>
+              <td>BookName</td>
+              <td>category:<br>Publicher<br>:Writer
+                
+              </td>
+              <td scope="row"><img src="book.jpeg" alt=""  style="height: 50px;width: 50px;"></td>
+              <td><b>2000</b>  </td>
+              <td><b>Accept</b>  </td>
+              <td>
+
+                <button type="button" class="btn text-white " style="background-color: #7ea4b3;">Recieved</button>
+                <button type="button" class="icon_btn"><i class="fa-solid fa-trash"></i></button>
+                <button type="button" class="icon_btn fl"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                       </td>
+            </tr>
+            <tr>
+              <th scope="row"><img src="download.png" alt=""  style="height: 50px;width: 50px;"></th>
+              <td>BookName</td>
+              <td>category:<br>Publicher<br>:Writer
+                
+              </td>
+              <td scope="row"><img src="book.jpeg" alt=""  style="height: 50px;width: 50px;"></td>
+              <td><b>2000</b>  </td>
+              <td><b>Delivery</b>  </td>
+              <td>
+                <button type="button" class="btn text-white " style="background-color: #7ea4b3;">Accept</button>
+                <button type="button" class="icon_btn fl"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+            </td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+<script>
+  // Get the input field and table rows
+  const filterInput = document.getElementById('filterInput');
+  const tableRows = document.querySelectorAll('.table tbody tr');
+
+  // Add event listener for input field
+  filterInput.addEventListener('input', function() {
+    const filterValue = this.value.toLowerCase();
+
+    // Loop through each table row and hide/show based on the filter
+    tableRows.forEach(row => {
+      const firstName = row.cells[5].textContent.toLowerCase();
+      if (firstName.includes(filterValue)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+</script>
+  
+  </div>
+</div>

@@ -1,0 +1,433 @@
+﻿@using Microsoft.AspNetCore.Http
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Book_kharido</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="~/Book_kharido.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Untree.co">
+    <link rel="shortcut icon" href="favicon.png">
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+
+    <!-- Bootstrap CSS -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="~/assets/css/tiny-slider.css" rel="stylesheet">
+    <link href="~/assets/css/style.css" rel="stylesheet">
+    <title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
+    <style>
+        .body {
+            background-color: #e7e8e9;
+        }
+
+        .card_button {
+            /* background-color: #084c61; /* Default color */ 
+            background-color: #3b5d50;
+            color: white;
+            width: 100%;
+        }
+
+            .card_button:hover {
+                background-color: rgb(0, 0, 0); /* Hover color */
+
+                color: white;
+            }
+
+    </style>
+    
+    <style>
+        .discount-tag {
+            background-color: #7ea4b3;
+            /* background-color: #fa0909;  */
+            /* Adjust background color as needed */
+            color: white;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+
+        :root {
+            --background-color: #084c61;
+        }
+        /* Custom styles for this template */
+
+        .ul li a {
+            color: #7ea4b3;
+        }
+
+            .ul li a:hover {
+                color: white;
+            }
+
+        .navbar-custom {
+            color: white;
+            background-color: var(--background-color); /* Navbar background color */
+        }
+
+        .card_button {
+            /* background-color: #084c61; */
+            background-color: #3b5d50;
+            color: white;
+            width: 100%;
+        }
+
+            .card_button:hover {
+                background-color: rgb(0, 0, 0);
+                color: white;
+            }
+
+        .sup {
+            font-size: small;
+        }
+
+
+
+
+        .card img {
+            height: 300px;
+            border-bottom: 1px solid;
+        }
+
+        .card-title {
+            font-size: large;
+        }
+
+        .card-title1 {
+            font-size: small;
+        }
+
+        .card {
+            transition: transform 0.3s;
+        }
+
+            .card:hover {
+                transform: scale(1.05);
+            }
+
+        .card_button {
+            /* background-color: #084c61; */
+            background-color: #3b5d50;
+            color: white;
+            width: 100%;
+        }
+
+            .card_button:hover {
+                background-color: rgb(0, 0, 0);
+                color: white;
+            }
+
+        .nav_button {
+            color: white;
+            background-color: #084c61; /* Default color */
+            width: 100px;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+            .nav_button:hover {
+                background-color: rgb(0, 0, 0); /* Hover color */
+                color: white;
+            }
+
+        .i1 {
+            transition: transform 0.3s;
+            font-size: x-large;
+            font-weight: bold;
+            color: #7ea4b3;
+        }
+
+            .i1:hover {
+                color: white;
+                transform: scale(1.04);
+            }
+
+        .form_button {
+            /* background-color: #084c61; /* Default color */ */
+            background-color: #3b5d50;
+            color: white;
+        }
+
+            .form_button:hover {
+                background-color: rgb(0, 0, 0); /* Hover color */
+
+                color: white;
+            }
+
+        .login-container {
+            border-radius: 10px;
+            background-color: #f2f2f2;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .table-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="body">
+
+
+    <nav class="custom-navbar navbar navbar navbar-expand-lg navbar-dark bg-dark" arial-label="Story Shop navigation bar">
+
+        <div class="container">
+             <a class="navbar-brand" asp-controller="Users" asp-action="Home">
+                
+             <img src="~/assets/images/a.png" alt="Description of Image" width="60" height="60"> 
+             </a> 
+             
+
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsFurni">
+                <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                    <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Users" && ViewContext.RouteData.Values["Action"].ToString() == "Home" ? "active" : "")">
+                        <a class="nav-link" asp-controller="Users" asp-action="Home">Home</a>
+                    </li>
+                    <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Users" && ViewContext.RouteData.Values["Action"].ToString() == "Shop" ? "active" : "")">
+                        <a class="nav-link" asp-controller="Users" asp-action="Shop">Shop</a>
+                    </li>
+                    <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Users" && ViewContext.RouteData.Values["Action"].ToString() == "About" ? "active" : "")">
+                        <a class="nav-link" asp-action="About" asp-controller="Users">About us</a>
+                    </li>
+                    <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Users" && ViewContext.RouteData.Values["Action"].ToString() == "OrderTracking" ? "active" : "")">
+                        <a class="nav-link" asp-controller="Users" asp-action="OrderTracking">Order Tracking</a>
+                    </li>
+                    <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Users" && ViewContext.RouteData.Values["Action"].ToString() == "FAQs" ? "active" : "")">
+                        <a class="nav-link" asp-controller="Users" asp-action="FAQs">FAQs</a>
+                    </li>
+                    <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Users" && ViewContext.RouteData.Values["Action"].ToString() == "Contact" ? "active" : "")">
+                        <a class="nav-link" asp-controller="Users" asp-action="Contact">Contact us</a>
+                    </li>
+                </ul>
+
+            @*     <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                    <li class="nav-item active ">
+                        <a class="nav-link" asp-controller="Users" asp-action="Home">Home</a>
+                    </li>
+                    <li><a class="nav-link" asp-controller="Users" asp-action="Shop">Shop</a></li>
+                    <li class=""><a class="nav-link" asp-action="About" asp-controller="Users">About us</a></li>
+                    <li><a class="nav-link" asp-controller="Users" asp-action="OrderTracking">Order Tracking</a></li>
+                    <li><a class="nav-link" asp-controller="Users" asp-action="FAQs">FAQs</a></li>
+                    <li><a class="nav-link" asp-controller="Users" asp-action="Contact">Contact us</a></li>
+                </ul> *@
+
+                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+
+                    @functions {
+                        string IsActive(string controller, string action) =>
+                        ViewContext.RouteData.Values["controller"].ToString() == controller &&
+                        ViewContext.RouteData.Values["action"].ToString() == action ? "active" : "";
+                    }
+                    @if (Context.Session.GetString("User") != null)
+                    {
+                        
+                        <li class="d-block d-lg-none"><a class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas"><img src="~/assets/images/user.svg" /></a></li>
+                        <li class="d-lg-block d-none"><a class="nav-link" asp-controller="Users" asp-action="Dashboard"><img src="~/assets/images/user.svg" /></a></li>
+                    
+                        <li><a class="nav-link" asp-controller="Users" asp-action="Cart"><img src="~/assets/images/cart.svg"></a></li>
+                        <li><a class="nav-link" asp-controller="Home" asp-action="Logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+
+                    
+}
+                    else if (Context.Session.GetString("Admin") != null)
+                    {
+                        <li class="d-block d-lg-none"><a class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas"><img src="~/assets/images/user.svg" /></a></li>
+                        <li class="d-lg-block d-none"><a class="nav-link" asp-controller="Admin" asp-action="Dashboard"><img src="~/assets/images/user.svg" /></a></li>
+                        <li><a class="nav-link" asp-controller="Home" asp-action="Logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                    }
+                    else
+
+                    {
+                        <li class="d-lg-block d-none"><a class="nav-link" asp-controller="Home" asp-action="Index"><img src="~/assets/images/user.svg" /></a></li>
+
+                    }
+
+               
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasLabel">DASHBOARD</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav ul mx-auto mb-2 mb-lg-0">
+                <li class="nav-item my-2  ">
+                    <a class="nav-link btn card_button" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn card_button" href="#">Books</a>
+                </li>
+                <li class="nav-item my-2">
+                    <a class="nav-link btn card_button" href="#">About</a>
+                </li>
+
+
+            </ul>
+
+        </div>
+    </div>
+
+ 
+
+    @* <div class="container"> *@
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    @* </div> *@
+
+
+
+
+    <footer class="footer-section">
+        <div class="container relative">
+
+            <div class="sofa-img">
+                <img src="~/assets/images/foo.png" alt="Image" class="img-fluid rounded-5"   >
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="subscription-form">
+                        <h3 class="d-flex align-items-center"><span class="me-1"><img src="~/assets/images/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
+
+                        <form asp-controller="Home" method="post" asp-action="Subcriber" class="row g-3">
+                            <div class="col-auto">
+                                <input type="text" name="names"   class="form-control" placeholder="Enter your name">
+                            </div>
+                            <div class="col-auto">
+                                <input type="email" name="email"  class="form-control" placeholder="Enter your email">
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-primary">
+                                    <span class="fa fa-paper-plane"></span>
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            
+
+
+            <div class="row g-5 mb-5">
+                <div class="col-lg-4">
+                    <div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo"><b>Story Shop</b><span>.</span></a></div>
+                    <p class="mb-4">Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant</p>
+
+                    <ul class="list-unstyled custom-social">
+                        <li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+                        <li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
+                        <li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
+                        <li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="row links-wrap">
+                        <div class="col-6 col-sm-6 col-md-3">
+                            <ul class="list-unstyled">
+                                <li><a href="#">About us</a></li>
+                                <li><a href="#">Services</a></li>
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="#">Contact us</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-6 col-sm-6 col-md-3">
+                            <ul class="list-unstyled">
+                                <li><a href="#">Support</a></li>
+                                <li><a href="#">Knowledge base</a></li>
+                                <li><a href="#">Live chat</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-6 col-sm-6 col-md-3">
+                            <ul class="list-unstyled">
+                                <li><a href="#">Jobs</a></li>
+                                <li><a href="#">Our team</a></li>
+                                <li><a href="#">Leadership</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-6 col-sm-6 col-md-3">
+                            <ul class="list-unstyled">
+                                <li><a href="#">Nordic Chair</a></li>
+                                <li><a href="#">Kruzo Aero</a></li>
+                                <li><a href="#">Ergonomic Chair</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="border-top copyright">
+                <div class="row pt-4">
+                    <div class="col-lg-6">
+                        <p class="mb-2 text-center text-lg-start">
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> Distributed By <a hreff="https://themewagon.com">ThemeWagon</a>  <!-- License information: https://untree.co/license/ -->
+                        </p>
+                    </div>
+
+                    <div class="col-lg-6 text-center text-lg-end">
+                        <ul class="list-unstyled d-inline-flex ms-auto">
+                            <li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <!-- End Footer Section -->
+
+
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/js/tiny-slider.js"></script>
+    <script src="~/assets/js/custom.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

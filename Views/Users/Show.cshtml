@@ -1,0 +1,194 @@
+﻿@model IEnumerable<Book_kharido.Models.Order>
+
+@{
+    ViewData["Title"] = "Show";
+}
+
+<h1>Show</h1>
+@* 
+<p>
+    <a asp-action="Create">Create New</a>
+    @ViewBag.userid
+</p>
+@foreach (var order in Model)
+{
+    if (order.Id == ViewBag.userid && order.Type == 0)
+    {
+        <tr>
+            <td>@order.OrderId</td>
+            <td>@order.OrderCode</td>
+            <td>@order.User.Name</td>
+
+            <td>@order.Product.ProductName</td>
+            <td>@order.Product.ProductCategory.ProductCategoryName</td>
+            <td>@order.Product.Publisher.PublisherName</td>
+            <td>@order.Product.Writer.WriteName</td>
+        </tr>
+    }
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ordertime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var order in Model)
+        {
+        <tr>
+            <td>
+                    @order.OrderCode
+            </td>
+            <td>
+                    @order.Product.ProductName <br />
+
+                    <img src="/@order.Product.ProductIamge" width="100px" height="100px" />
+                </td>
+            <td>
+                    @order.Product.ProductCategory.ProductCategoryName <br />
+                    @order.Product.Publisher.PublisherName <br />
+                    @order.Product.Writer.WriteName 
+            </td>
+           
+            <td>
+                   
+                    <form id="quantityForm" method="post">
+                        <input type="hidden" name="orderid" value="@order.OrderId" />
+                        <input type="hidden" name="productid" value="@order.Product.ProductId" />
+                        <input type="hidden" name="quantity" value="1" />
+                
+                        <button type="submit" class="btn btn-primary" data-action="sub">-</button>
+                        @order.Quantity
+                        <button type="submit" class="btn btn-primary" data-action="add">+</button>
+
+                    </form>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var form = document.getElementById('quantityForm');
+                            var buttons = form.querySelectorAll('button[type="submit"]');
+                            buttons.forEach(function (button) {
+                                button.addEventListener('click', function (event) {
+                                    var action = this.getAttribute('data-action');
+                                    if (action === 'sub') {
+                                        form.action = '@Url.Action("SubQuantity", "Users")';
+                                    } else {
+                                        form.action = '@Url.Action("AddQuantity", "Users")';
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+
+            </td>
+            <td>
+                    @order.User.Name
+            </td>
+            <td>
+                    @order.Ordertime
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@order.OrderId">Delete</a>
+            </td>
+        </tr>
+}
+
+
+    </tbody>
+</table>
+                <a asp-action="" asp-route-id="">order</a>
+ *@
+
+<form asp-controller="Users" asp-action="comfirmorder" method="post">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Product</th>
+                <th>Product</th>
+                <th>Product</th>
+                <!-- Other table headers -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                if (order.Id == ViewBag.userid && order.Type == 0)
+                { 
+                var MaxQty = @order.Product.ProductQuantity;
+
+            <tr>
+                <td>
+
+                        <input type="radio" name="">
+                </td>
+                    
+                    <td>
+                        @order.Product.ProductName <br />
+                        <br />
+
+                    </td>
+                    <td>
+                        <img src="/@order.Product.ProductIamge" width="100px" height="100px" />
+
+                    </td>
+                    <td>
+                        @order.Product.ProductCategory.ProductCategoryName <br />
+                        @order.Product.Publisher.PublisherName <br />
+                        @order.Product.Writer.WriteName
+                    </td>
+                    <!-- Render other columns -->
+                    <td>
+                        <input type="hidden" name="orders[@order.OrderId].OrderId" value="@order.OrderId" />
+                        <input type="hidden" name="orders[@order.OrderId].ProductId" value="@order.Product.ProductId" />
+
+                        <input type="number" name="orders[@order.OrderId].Quantity" value="1" min="1" max="@MaxQty">
+                          
+                        <div class="form-group">
+   
+                            @order.Quantity
+                            
+                        
+                    </td>
+                    <td>
+
+                        <a asp-action="AddtocartDelete" asp-route-id="@order.OrderId">Delete</a>
+                    </td>
+                    <!-- Render other columns -->
+                </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+
+        <button type="submit" class="btn btn-primary">Add</button>
+    
+</form>
+
+
+    

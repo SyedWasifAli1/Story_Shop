@@ -1,0 +1,131 @@
+﻿@model IEnumerable<Book_kharido.Models.Order>
+
+
+    @{
+        var result=0;
+    }
+<!-- Start Hero Section -->
+<div class="hero">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-lg-5">
+                <div class="intro-excerpt">
+                    <h1>Cart</h1>
+                </div>
+            </div>
+            <div class="col-lg-7">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Hero Section -->
+
+
+
+<form asp-controller="Users" asp-action="comfirmorder" method="post">
+
+    <div class="untree_co-section before-footer-section">
+        <div class="container">
+            <div class="row mb-5">
+                    <div class="site-blocks-table">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="product-thumbnail">Image</th>
+                                    <th class="product-name">Product</th>
+                                    <th class="product-price">Price</th>
+                                    <th class="product-quantity">Quantity</th>
+                                    @* <th class="product-total">Total</th> *@
+                                    <th class="product-remove">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                          
+                                @foreach (var order in Model)
+                                {
+                                    if (order.Id == ViewBag.userid && order.Type == 0)
+                                    {
+                                        var divide = order.Product.ProductPrice / 100;
+                                        var dicount = order.Product.ProductDiscount * divide;
+                                         result = order.Product.ProductPrice - dicount;
+                                 
+                                        var MaxQty = order.Product.ProductQuantity;
+
+                                    
+                                        <tr>
+                                            <td class="product-thumbnail">
+                                                <img src="/@order.Product.ProductIamge" alt="Image" class="img-fluid">
+                                            </td>
+                                            <td class="product-name">
+                                                <h2 class="h5 text-black">@order.Product.ProductName</h2>
+                                            </td>
+                                            <td>
+                                            <span id="resultDisplay">@result</span>
+                                            </td>
+                                            <td>
+                                                  
+                                                    <input type="hidden" name="orders[@order.OrderId].OrderId" value="@order.OrderId" />
+                                                    <input type="hidden" name="orders[@order.OrderId].ProductId" value="@order.Product.ProductId" />
+                                         
+                                            <input id="quantityInput"
+                                                   oninput="updateResult()" type="number" class="form-control  text-center rounded-0" name="orders[@order.OrderId].Quantity" value="@order.Quantity" min="1" max="@MaxQty">
+
+                                            </td>
+                                            <td><a asp-action="AddtocartDelete" asp-route-id="@order.OrderId" class="btn btn-black btn-sm">X</a></td>
+                                        </tr>
+
+
+                                    }
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row mb-5">
+ 
+                        <div class="col-md-6">
+                            <a class="btn btn-outline-black btn-sm btn-block" asp-controller="Users" asp-action="Shop">Continue Shopping</a>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-outline-black float-end btn-sm btn-block">Checkout</button>
+                        </div>
+
+ 
+
+
+                    </div>
+                    
+                </div>
+     
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    var basePrice = @result;
+    function updateResult() {
+        // Get the quantity input field value
+        var quantity = document.getElementById('quantityInput').value;
+
+        // Assuming ViewBag.result is a base price or similar
+        //var basePrice = parseFloat('@ViewBag.result');
+
+        // Calculate the total price
+        var totalPrice = quantity * basePrice;
+
+        // Update the result display
+        document.getElementById('resultDisplay').textContent = totalPrice.toFixed(2);
+    }
+
+    window.onload = function () {
+        updateResult();
+    };
+</script>

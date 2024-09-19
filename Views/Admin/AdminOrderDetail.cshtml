@@ -1,0 +1,167 @@
+﻿@model IEnumerable<Book_kharido.Models.Order>
+
+@{
+    ViewData["Title"] = "Ordered Detail";
+}
+
+<partial name="_Partail_Admin" />
+
+<div class="col-lg-9 col-12 col-lg-9 my-3">
+
+    <div class="table-container">
+
+
+    <div class="container mb-5 pb-5">
+
+        <div class="row">
+        <div class="col-6 p-5">
+              @{
+            string encodedBillCode = Uri.EscapeDataString(ViewBag.OD);
+            string qrCodeImage = $"https://api.qrserver.com/v1/create-qr-code/?data={encodedBillCode}&size=200x200";
+            ViewBag.QRCodeImage = qrCodeImage;
+            }
+
+            <img src="@ViewBag.QRCodeImage" alt="QR Code" width="150px" height="150px" />
+
+        </div>
+        <div class="col-6 p-5">
+            @foreach (var user in ViewBag.bill)
+            {
+                if (user.BillCode == ViewBag.OD)
+                {
+                    <h5> <b>Order Code :</b> @user.BillCode</h5>
+                    <h5> <b>Customer :</b> @user.User.Name</h5>
+                    <h5><b>Phone :</b> @user.User.PhoneNumber</h5>
+                    <h5> <b>City :</b>@user.User.City.CityName</h5>
+                    <h5> <b>Street Address :</b>@user.User.Address</h5>
+
+
+                }
+            }
+
+
+        </div>
+
+
+    </div>
+
+    
+
+    <table class="table mb-0">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Product Image</th>
+                <th>Details</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+             @{
+            decimal totalsum = 0;
+            }
+            @foreach (var order in Model)
+            {
+                var itemdate = order.Ordertime;
+
+                if (order.Type == 1 && order.OrderCode == ViewBag.OD)
+                {
+                    var divide = order.Product.ProductPrice / 100;
+                    var dicount = order.Product.ProductDiscount * divide;
+                    var price = order.Product.ProductPrice - dicount;
+
+                    var ordertotal = @order.Total;
+                    totalsum += ordertotal;
+                    <tr>
+                        <td>@order.Product.ProductName</td>
+                        <td><img src="/@order.Product.ProductIamge" width="100px" height="100px" /></td>
+                        <td>
+                            Category: @order.Product.ProductCategory.ProductCategoryName <br />
+                            Publisher: @order.Product.Publisher.PublisherName <br />
+                            Writer: @order.Product.Writer.WriteName
+                        </td>
+                        <td>@price</td>
+                        <td>@order.Quantity</td>
+                        <td>@order.Total</td>
+                        <td>
+                            @* <a asp-action="OrderDelete" asp-route-id="@order.OrderId">Delete</a> *@
+                            @if (DateTime.Now <= itemdate)
+                            {
+                                <p> @DateTime.Now.ToString()  : After Accept you Order</p>
+                                <a asp-action="OrderDelete" asp-route-id="@order.OrderId" class="delete-btn">Delete</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-danger disabled">Delete</a>
+
+                            }
+
+
+                        </td>
+                    </tr>
+                }
+            }
+
+
+        </tbody>
+
+        <tbody>
+
+            @foreach (var order in Model)
+            {
+                var itemdate = order.Ordertime;
+
+
+                if (order.Type == 2 && order.OrderCode == ViewBag.OD)
+                {
+                    var divide = order.Product.ProductPrice / 100;
+                    var dicount = order.Product.ProductDiscount * divide;
+                    var price = order.Product.ProductPrice - dicount;
+
+                    <tr style="opacity: 0.5;">
+                        <td>@order.Product.ProductName</td>
+                        <td><img src="/@order.Product.ProductIamge" width="100px" height="100px" /></td>
+                        <td>
+                            Category: @order.Product.ProductCategory.ProductCategoryName <br />
+                            Publisher: @order.Product.Publisher.PublisherName <br />
+                            Writer: @order.Product.Writer.WriteName
+                        </td>
+                        <td>@price</td>
+                        <td>@order.Quantity</td>
+                        <td>@order.Total</td>
+                        <td>
+                            @* <a asp-action="OrderDelete" asp-route-id="@order.OrderId">Delete</a> *@
+                            <a class="btn btn-danger disabled">Delete</a>
+
+
+
+                        </td>
+                    </tr>
+                }
+            }
+
+
+        </tbody>
+
+    </table>
+    <a class="btn btn-Dark float-end disabled mb-5">Total: @totalsum</a>
+
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+

@@ -1,0 +1,168 @@
+﻿@model IEnumerable<Book_kharido.Models.Bill>
+
+@{
+    ViewData["Title"] = "Ordered";
+}
+
+<div class="container" style="margin-bottom:300PX;">
+        <h1 class=" my-4 text-center">Order Tracking</h1>
+    <div class="row mb-3">
+        <div class="col">
+            <input type="text" id="filterInput" class="form-control" placeholder="Filter by Order Code" minlength="8" maxlength="8">
+             
+        </div>
+        <div class="col-auto">
+            <button id="filterButton" class="btn btn-primary rounded-2">Filter</button>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="sit">
+            <table class="table">
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var itemdate = item.Ordertime;
+
+                        if (item.Id == ViewBag.userid)
+                        {
+                            <tr class="filtered-row" style="display:none;">
+                                <td>
+                                    <h6>Order Code: @item.BillCode</h6>
+                                    <h6>Name : @item.User.Name</h6>
+                                    
+                                    @if (item.Status == 1)
+                                    {
+                                        <div class="progress bg-secondary">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: @(item.Status * 25)%;" aria-valuenow="@item.Status" aria-valuemin="1" aria-valuemax="4">Pending</div>
+                                        </div>
+                                    }
+                                    else if (item.Status == 2)
+                                    {
+                                        <div class="progress bg-secondary">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: @(item.Status * 25)%;" aria-valuenow="@item.Status" aria-valuemin="1" aria-valuemax="4">
+                                                <div class="row">
+                                                    <div class="col-6 border-end">
+                                                        Pending
+                                                    </div>
+                                                    <div class="col-6 border-end">
+
+                                                        Accept
+
+                                                    </div>
+     
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }  
+                                    else if (item.Status == 3)
+                                    {
+                                        <div class="progress bg-secondary">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: @(item.Status * 25)%;" aria-valuenow="@item.Status" aria-valuemin="1" aria-valuemax="4">  
+                                                <div class="row">
+                                                <div class="col-4 border-end">
+                                                    Pending
+                                                </div>
+                                                    <div class="col-4 border-end">
+                                                        
+                                                Accept
+
+                                                </div>
+                                                    <div class="col-4 border-end">
+
+                                                Delivered
+                                                </div>
+
+                                                </div>
+
+                                                </div>
+                                        </div>
+                                    } 
+                                    else if (item.Status == 4)
+                                    {
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: @(item.Status * 25)%;" aria-valuenow="@item.Status" aria-valuemin="1" aria-valuemax="4">
+                                                <div class="row">
+                                                    <div class="col-3 border-end">
+                                                        Pending
+                                                    </div>
+                                                    <div class="col-3 border-end">
+
+                                                        Accept
+
+                                                    </div>
+                                                    <div class="col-3 border-end">
+
+                                                        Delivered
+                                                    </div>  <div class="col-3">
+
+                                                        Recieved
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    } else if (item.Status == 5)
+                                    {
+                                        <div class="progress">
+                                            <div class="progress-bar bg-danger" role="progressbar" style="width: @(item.Status * 20)%;" aria-valuenow="@item.Status" aria-valuemin="1" aria-valuemax="4">
+                                                Canceled
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        @* <h1>@new string('*', item.Status)</h1> *@
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                    <tr id="noResultsRow" style="display:none;">
+                        <td colspan="2">No matching order code found.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    // Get the input field, button, table rows, and no results row
+    const filterInput = document.getElementById('filterInput');
+    const filterButton = document.getElementById('filterButton');
+    const tableRows = document.querySelectorAll('.table tbody .filtered-row');
+    const noResultsRow = document.getElementById('noResultsRow');
+
+    // Add event listener for filter button
+    filterButton.addEventListener('click', function () {
+        filterRows();
+    });
+
+    // Add event listener for input field (to filter on Enter key press)
+    filterInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            filterRows();
+        }
+    });
+
+    function filterRows() {
+        const filterValue = filterInput.value.trim().toLowerCase();
+        let found = false;
+
+        // Loop through each table row and hide/show based on the filter
+        tableRows.forEach(row => {
+            const orderCode = row.querySelector('h6').textContent.trim().toLowerCase();
+            if (orderCode.includes(filterValue)) {
+                row.style.display = '';
+                found = true;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        // Show no results row if no matching order code found
+        noResultsRow.style.display = found ? 'none' : '';
+    }
+</script>

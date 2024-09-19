@@ -1,0 +1,116 @@
+﻿@model Book_kharido.Models.Product
+
+@{
+    ViewData["Title"] = "AddProduct";
+}
+<partial name="_Partail_Admin" />
+
+        <div class="col-lg-9 col-12 col-lg-9 my-3 ">
+        <div class="table-container px-5">
+                <h5 class="text-center">Add Product</h5>
+            <form asp-action="AddProduct" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <label for="">Book Name</label>
+                        <input asp-for="ProductName" class="form-control" />
+                        <span asp-validation-for="ProductName" class="text-danger"></span>
+                    </div>
+                <div class="col-12 col-lg-6">
+                        <label for="">Category</label>
+                        <select asp-for="ProductCategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.ProductCategoryName,"Value","Text"))">
+                            <option>Select a Categories</option>
+                        </select>
+                        <span asp-validation-for="ProductCategoryId" class="text-danger"></span>
+                    </div>
+                <div class="col-12 col-lg-6">
+                        <label for="">Writer</label>
+                        <select asp-for="WriterID" class="form-control" asp-items="@(new SelectList(ViewBag.WriterName,"Value","Text"))">
+                            <option>Select a Categories</option>
+                        </select>
+                        <span asp-validation-for="WriterID" class="text-danger"></span>
+
+                    </div>
+                <div class="col-12 col-lg-6">
+                        <label for="">Publisher</label>
+                        <select asp-for="PublisherID" class="form-control" asp-items="@(new SelectList(ViewBag.PublisherName,"Value","Text"))">
+                            <option value="">Select a Publisher</option>
+                        </select>
+                        <span asp-validation-for="PublisherID" class="text-danger"></span>
+
+                    </div>
+                <div class="col-12 col-lg-6">
+                        <label for="">Page</label>
+                        <input asp-for="Page" min="10" class="form-control" />
+                        <span asp-validation-for="Page" class="text-danger"></span>
+                    </div>
+                <div class="col-12 col-lg-6">
+                        <label for="">Person of Discount</label>
+                        <input asp-for="ProductDiscount" min="1" max="99" class="form-control" />
+                        <span asp-validation-for="ProductDiscount" class="text-danger"></span>
+
+                    </div>
+                <div class="col-12 col-lg-6">
+                        <label for="">Price</label>
+                        <input asp-for="ProductPrice" min="1" class="form-control" />
+                        <span asp-validation-for="ProductPrice" class="text-danger"></span>
+                    </div>
+
+                <div class="col-12 col-lg-6">
+                        <label for="">Quantity</label>
+                        <input asp-for="ProductQuantity" min="10" max="100" class="form-control" />
+                        <span asp-validation-for="ProductQuantity" class="text-danger"></span>
+
+                    </div>
+
+                <div class="col-12 col-lg-6">
+                        <label for="">Image</label>
+                        <input asp-for="ProductFile" type="file" class="form-control" id="fileInput" />
+                        <span asp-validation-for="ProductIamge" class="text-danger"></span>
+                        <img height="100px" class="my-2" id="previewImg" src="book.jpeg">
+
+                        <script>
+                            const fileInput = document.getElementById('fileInput');
+                            const previewImg = document.getElementById('previewImg');
+
+                            fileInput.addEventListener('change', function () {
+                                const file = this.files[0];
+                                if (file) {
+                                    const reader = new FileReader();
+                                    reader.onload = function (e) {
+                                        previewImg.src = e.target.result;
+                                    }
+                                    reader.readAsDataURL(file);
+                                }
+                            });
+                        </script>
+
+                    </div>
+                <div class="col-12 col-lg-6">
+                        <label for="description">Description</label>
+                @* <input asp-for="ProductDescription" class="form-control" /> *@
+                <textarea asp-for="ProductDescription" class="form-control" cols="30" rows="6">
+
+                        </textarea>
+
+                        <span asp-validation-for="ProductDescription" class="text-danger"></span>
+
+                    </div>
+
+
+                </div>
+                <button type="submit" class="btn btn-primary rounded-2 float-end my-2">Add</button>
+            </form>
+        </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

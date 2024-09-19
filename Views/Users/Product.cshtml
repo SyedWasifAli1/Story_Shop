@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Book_kharido.Models.Product>
+
+@{
+    ViewData["Title"] = "Product";
+}
+<div class="container">
+    <div class="row my-5">
+          @foreach (var item in Model)
+        {
+            var divide = item.ProductPrice / 100;
+            var dicount = item.ProductDiscount * divide;
+            var result = item.ProductPrice - dicount;
+        <div class="col-lg-3 col-md-4 col-6 col-sm-6  px-3 py-3">
+            <div class="card">
+                <img src="/@item.ProductIamge" class="card-img-top" alt="...">
+
+                    @* <img src="/@Html.DisplayFor(modelItem => item.ProductIamge)" class="img-fuild" alt="" /> *@
+
+                    <span class="discount-tag">@item.ProductDiscount% off</span>
+                <div class="card-body">
+                        <h1 class="card-title1 d-block d-lg-none  "> @item.ProductName</h1>
+                        <h1 class="card-title d-lg-block d-none "> @item.ProductName</h1>
+
+                    <span class="product-price">
+                            <b>RS:@result</b>  <sup class="sup">
+                                <del>@item.ProductPrice</del>
+                        </sup>
+                    </span>
+                    <br>
+                    @* <a href="#" class="btn card_button">Details</a> *@
+
+                    <style>
+                            .card_button {
+                                background-color: #084c61;
+                                color: white;
+                                width: 100%;
+                            }
+
+                                .card_button:hover {
+                                    background-color: rgb(0, 0, 0);
+                                    color: white;
+                                }
+                    </style>
+                        
+
+                        <a asp-action="Details" class="btn ca card_button btimary" asp-route-id="@item.ProductId">
+
+                            Details</a>
+                </div>
+            </div>
+
+        </div>
+        }
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="container">
+    <div class="row">
+        @* @ViewBag.id
+        @ViewBag.email *@
+        @foreach (var item in Model)
+        {
+            var divide = item.ProductPrice / 100;
+            var dicount = item.ProductDiscount * divide;
+            var result = item.ProductPrice - dicount;
+            
+        <div class="col-md-4">
+            <div class="card mb-3">
+                    <img src="/@Html.DisplayFor(modelItem => item.ProductIamge)" class="img-fuild" alt=""  height="200px" />
+
+                <div class="card-body">
+
+                        <b> <sub>Rs</sub> @result </b>
+                        <h5 class="card-title"> @item.ProductName </h5>
+                        <h6 class="text-Secondary">  @item.ProductPrice <sup>  @item.ProductDiscount% </sup>   </h6>
+
+
+
+                        <a asp-action="Details" asp-route-id="@item.ProductId">Details</a>
+
+                    </div>
+            </div>
+        </div>
+        }
+
+
+    
+    </div>
+</div>

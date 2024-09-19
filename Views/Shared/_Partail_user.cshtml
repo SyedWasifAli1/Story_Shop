@@ -1,0 +1,24 @@
+﻿<div class="container-fluid ">
+    <div class="row">
+
+        <div class="col-lg-3 col-md-3 d-lg-block d-none border-end" style="height: 600px;">
+            <h3 class="text-center py-2"><b>DASHBOARD User</b> </h3>
+            
+            <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                <li class="nav-item my-2  ">
+                    <a class="nav-link btn card_button rounded-2" asp-controller="Users" asp-action="Dashboard" aria-current="page" >Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn card_button rounded-2" asp-controller="Users" asp-action="Ordered" >Orders</a>
+                </li>
+                <li class="nav-item my-2">
+                    <a class="nav-link btn card_button rounded-2" asp-controller="Users" asp-action="CancelOrder" >Cancel Order</a>
+                </li>
+                <li class="nav-item my-2">
+                    <a class="nav-link btn card_button rounded-2" asp-controller="Users" asp-action="RecievedOrder">My Orders</a>
+                </li>
+
+            </ul>
+
+
+        </div>

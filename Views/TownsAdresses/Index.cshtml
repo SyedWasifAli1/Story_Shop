@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Book_kharido.Models.TownsAdress>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<partial name="_Partail_Admin" />
+<div class="col-lg-9 col-12 col-lg-9 my-3">
+    <a asp-action="AddProduct" asp-controller="Admin" class="btn float-end rounded-2">+</a>
+
+    <div class="table-container">
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TownName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KoloMeter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryFee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TownName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KoloMeter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryFee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City.CityId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country.CountryId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TownsAId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TownsAId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TownsAId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+    </div>
+</div>
+</div>

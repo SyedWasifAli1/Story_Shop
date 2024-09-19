@@ -1,0 +1,35 @@
+﻿@model Book_kharido.Models.FAQ
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<partial name="_Partail_Admin" />
+<div class="col-lg-9 col-12 col-lg-9 my-3">
+    <div class="table-container">
+<div>
+    <h4>FAQ</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Question)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Question)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Answer)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Answer)
+        </dd>
+    </dl>
+</div>
+ 
+
+    </div>
+</div>
+</div>
+</div>
+
+

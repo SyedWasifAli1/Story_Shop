@@ -1,0 +1,82 @@
+﻿@model Book_kharido.Models.User
+
+
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<form asp-controller="Users" asp-action="Userupdate" method="post">
+
+    <input type="hidden" asp-for="Id" value="@ViewBag.userid" />
+    <input asp-for="Address" placeholder="Address" />
+    <input asp-for="PhoneNumber" value="" />
+
+    <select asp-for="CountryId" class="form-control" asp-items="@(new SelectList(ViewBag.CountryName,"Value","Text"))">
+        <option>Select a Country</option>
+    </select>
+    <select asp-for="CityId" class="form-control" asp-items="@(new SelectList(ViewBag.CityName,"Value","Text"))">
+        <option>Select a City</option>
+    </select>
+
+    <button type="submit" class="btn btn-primary">ComfirmOrder</button>
+    
+
+
+</form>
+
+
+<table>
+
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Product</th>
+            <th>Product</th>
+            <th>Product</th>
+            <th>Product</th>
+            <th>Product</th>
+            <th>Product</th>
+            <th>Product</th>
+            <th>Product</th>
+            <!-- Other table headers -->
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            decimal totalsum = 0;
+        }
+
+                @foreach (var order in ViewBag.orders)
+                {
+                    if (order.Id == ViewBag.userid && order.Type == 0)
+                    {
+                                var divide = order.Product.ProductPrice / 100;
+                                var dicount = order.Product.ProductDiscount * divide;
+                                var price = order.Product.ProductPrice - dicount;
+                                var ordertotal =@order.Total;
+                totalsum += ordertotal;
+                <tr>
+                            <td>@order.OrderId</td>
+                            <td>@order.OrderCode</td>
+                            <td>@order.User.Name</td>
+
+                            <td>@order.Product.ProductName</td>
+                            <td>@order.Product.ProductCategory.ProductCategoryName</td>
+                            <td>@order.Product.Publisher.PublisherName</td>
+                            <td>@order.Product.Writer.WriteName</td>
+                            <td>@price</td>
+                            <td>@order.Quantity</td>
+                            <td>@ordertotal</td>
+                        </tr>
+                    }
+
+                }
+
+   
+
+    </tbody>
+</table>
+        <h1>@totalsum</h1>

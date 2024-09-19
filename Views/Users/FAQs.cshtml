@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Book_kharido.Models.FAQ>
+
+@{
+    ViewData["Title"] = "FAQs";
+}
+
+
+
+        <div class="container my-5 pb-5">
+            <div class="row">
+                    <h1 class="text-center">FAQs</h1>
+                <div class="col-12">
+                    <div class="accordion my-4 pb-5" id="accordionExample">
+                        @foreach (var item in Model)
+                        {
+                            <div class="accordion-item my-3">
+                                <h2 class="accordion-header" id="heading@(item.FAQsId)">
+                                    <button class="accordion-button  rounded-0" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse@(item.FAQsId)" aria-expanded="false" aria-controls="collapse@(item.FAQsId)">
+                                        @item.Question
+                                    </button>
+                                </h2>
+                                <div id="collapse@(item.FAQsId)" class="accordion-collapse collapse" aria-labelledby="heading@(item.FAQsId)"
+                                     data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        @item.Answer
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    
+        

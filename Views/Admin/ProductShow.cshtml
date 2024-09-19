@@ -1,0 +1,113 @@
+﻿@model IEnumerable<Book_kharido.Models.Product>
+
+@{
+    ViewData["Title"] = "ProductShow";
+}
+
+
+<partial name="_Partail_Admin" />
+
+<div class="col-lg-9 col-12 col-lg-9 my-3">
+        <div class="row px-3">
+        <div class="col-lg-11 col-md-10 col-9">
+
+        <input type="text" id="filterInput" class="form-control mb-3" placeholder="Filter by Name">
+        </div>
+        <div class="col-lg-1 col-md-2 col-3">
+
+        <a asp-action="AddProduct" asp-controller="Admin" class="btn  rounded-2">+</a>
+        </div>
+        </div>
+
+    <div class="table-container px-3">
+        <table class="table  table-hover ">
+            <thead>
+                <tr>
+
+                    <th scope="col">Book Name</th>
+                    <th scope="col">Book</th>
+                    <th scope="col">Page</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Discount</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var divide = item.ProductPrice / 100;
+                    var dicount = item.ProductDiscount * divide;
+                    var result = item.ProductPrice - dicount;
+
+                    <tr>
+                       
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        <td>
+                            <img src="/@Html.DisplayFor(modelItem => item.ProductIamge)" alt=""  height="100px" />
+                        </td>
+                       @*  <td>
+                            @Html.DisplayFor(modelItem => item.ProductDescription)
+                        </td> *@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductPrice)
+
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Page)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductQuantity)
+
+
+
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.ProductDiscount):Person Off <br />
+                            @result: Discount Price
+                        </td>
+               
+                        <td>
+                            <a asp-action="UpdateProduct" asp-controller="Admin" asp-route-id="@item.ProductId">Edit</a>
+                            |
+                            <a asp-action="DetailProduct" asp-route-id="@item.ProductId">Details</a> |
+                            <a asp-action="DeleteProduct" asp-route-id="@item.ProductId">Delete</a>
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<script>
+    // Get the input field and table rows
+    const filterInput = document.getElementById('filterInput');
+    const tableRows = document.querySelectorAll('.table tbody tr');
+
+    // Add event listener for input field
+    filterInput.addEventListener('input', function () {
+        const filterValue = this.value.toLowerCase();
+
+        // Loop through each table row and hide/show based on the filter
+        tableRows.forEach(row => {
+            const firstName = row.cells[1].textContent.toLowerCase();
+            if (firstName.includes(filterValue)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+</div>
+</div>

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Book_kharido.Models.Bill>
+
+@{
+    ViewData["Title"] = "Ordered";
+}
+
+
+<partial name="_Partail_user" />
+<div class="col-lg-9 col-12 col-lg-9 my-3">
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Bill Code
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @* @{
+                var date = DateTime.Now.ToString();
+
+                }
+                *@
+                @foreach (var item in Model)
+                {
+                    var itemdate = item.Ordertime;
+
+
+                    if (item.Id == ViewBag.userid && item.Status == 4)
+                    {
+                        <tr>
+                            <td>
+                                @* @Html.DisplayFor(modelItem => item.BillCode) *@
+                                @{
+                                    string encodedBillCode = Uri.EscapeDataString(item.BillCode);
+                                    string qrCodeImage = $"https://api.qrserver.com/v1/create-qr-code/?data={encodedBillCode}&size=200x200";
+                                    ViewBag.QRCodeImage = qrCodeImage;
+                                }
+                                <img src="@ViewBag.QRCodeImage" alt="QR Code" width="50px" height="50px" />
+
+                            </td>
+                            <td>
+
+                                Recieved
+                                @foreach (var order in ViewBag.orders)
+                                {
+                                    if (order.Id == ViewBag.userid && order.Type == 1 && order.OrderCode == item.BillCode)
+                                    {
+
+                                        <img src="/@order.Product.ProductIamge" style="width: 50px; height: 50px;" />
+
+                                    }
+                                }
+                            </td>
+                            <td>
+
+
+                                <a asp-action="OrderedDetail" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" asp-route-id="@item.BillId">Details</a>
+
+                            </td>
+                        </tr>
+                    }
+
+
+
+
+
+                }
+
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+</div>
+</div>
+
+

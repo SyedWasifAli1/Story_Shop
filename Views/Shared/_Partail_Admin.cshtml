@@ -1,0 +1,57 @@
+﻿<div class="container-fluid ">
+    <div class="row">
+    
+    <style>
+            .card_button1 {
+                /* background-color: #084c61; /* Default color */
+                background-color: #3b5d50;
+                width: 100%;
+            }
+
+                .card_button1:hover {
+
+                    color: white;
+                }
+
+    </style>
+        <div class="col-lg-3 col-md-3 d-lg-block d-none   border-end" style="height: 600px;">
+            <ul class="navbar-nav ul mx-auto mb-2 mb-lg-0">
+                <li class="nav-item my-1 l ">
+                    <a class="nav-link btn card_button1 rounded-2" asp-controller="Admin" asp-action="Dashboard" aria-current="page">Dashboard</a>
+                </li>
+
+                <li class="nav-item l">
+                    <a class="nav-link btn card_button1 rounded-2" asp-controller="Admin" asp-action="AdminOrder">Orders</a>
+                </li>
+                <li class="nav-item my-1 l">
+                    <a class="nav-link btn card_button1 rounded-2" asp-controller="Admin" asp-action="AdminOrderCancel">Cancel Order</a>
+                </li>
+                <li class="nav-item l">
+                    <a class="nav-link btn card_button1 rounded-2" asp-controller="Admin" asp-action="RecievedOrder">Received Order</a>
+                </li>
+                <li class="nav-item my-1 l">
+                    <a class="nav-link btn card_button rounded-2" asp-controller="Admin" asp-action="ProductShow">Books</a>
+                </li>
+                <li class="nav-item l">
+                    <a class="nav-link btn card_button rounded-2" asp-controller="Admin" asp-action="Contacts">Contact</a>
+                </li>
+                <li class="nav-item my-1 l">
+                    <a class="nav-link btn card_button rounded-2" asp-controller="Subcribers" asp-action="Index">Subscribers</a>
+                </li>
+                <li class="nav-item l">
+                    <a class="nav-link btn card_button rounded-2" asp-controller="Admin" asp-action="More">More</a>
+                </li>
+            </ul>
+        </div>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    var currentUrl = window.location.pathname;
+                    $('.nav-link').each(function () {
+                        var linkUrl = $(this).attr('href');
+                        if (currentUrl === linkUrl) {
+                            $(this).closest('.l a').addClass('active');
+                        }
+                    });
+                });
+            </script>

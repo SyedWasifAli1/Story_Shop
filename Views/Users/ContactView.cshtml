@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Book_kharido.Models.Contact>
+
+@{
+    ViewData["Title"] = "ContactView";
+}
+
+<partial name="_Partail_user" />
+<div class="col-lg-9 col-12 col-lg-9 my-3">
+    <div class="table-container">
+        Hii User
+        @ViewBag.email
+                    <div class="card-body">
+                        @foreach (var item in Model)
+                        {
+                            if (item.Id == ViewBag.id && item.Type == 1)
+                            {
+
+                                <img src="https://tse2.mm.bing.net/th?id=OIP.EVCGXvrjsvMrhfOX3su_FgHaHa&pid=Api&P=0&h=220" class="img-fluid rounded-pill " style="height:30px;">
+                                <strong>User</strong>
+
+
+                                
+                                        <p class="card-text">
+                                            @Html.DisplayFor(modelItem => item.OrderCode) <br />
+                                            @Html.DisplayFor(modelItem => item.Message) <br />
+                                            @Html.DisplayFor(modelItem => item.FAQ.Answer) <br />
+                                            @Html.DisplayFor(modelItem => item.User.Address) <br />
+                                            @Html.DisplayFor(modelItem => item.Type) <br />
+                                            @Html.DisplayFor(modelItem => item.Ordertime)
+                                        </p>
+                                  
+
+                            }
+                            else if (item.Id == ViewBag.id && item.Type == 2)
+                            {
+                    <img src="https://tse2.mm.bing.net/th?id=OIP.EVCGXvrjsvMrhfOX3su_FgHaHa&pid=Api&P=0&h=220" class="img-fluid rounded-pill " style="height:30px;">
+                    <strong>Admin</strong>
+
+
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            @Html.DisplayFor(modelItem => item.OrderCode) <br />
+                                            @Html.DisplayFor(modelItem => item.Message) <br />
+                                            @Html.DisplayFor(modelItem => item.FAQ.Answer) <br />
+                                            @Html.DisplayFor(modelItem => item.User.Address) <br />
+                                            @Html.DisplayFor(modelItem => item.Type) <br />
+                                            @Html.DisplayFor(modelItem => item.Ordertime)
+                                        </p>
+                                    </div>
+
+                            }
+
+                        }
+
+
+                    </div>
+
+                <!-- More reviews can be added here -->
+            </div>
+
+     
+    </div>
+</div>
+</div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FAQ)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ordertime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>

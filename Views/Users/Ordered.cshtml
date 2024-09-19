@@ -1,0 +1,384 @@
+﻿@model IEnumerable<Book_kharido.Models.Bill>
+
+@{
+    ViewData["Title"] = "Ordered";
+}
+
+
+<partial name="_Partail_user" />
+<div class="col-lg-9 col-12 col-lg-9 my-3">
+    <div class="table-container">
+                    <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Bill Code
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @* @{
+                    var date = DateTime.Now.ToString();
+
+                    }
+                    *@
+                    @foreach (var item in Model)
+                    {
+                        var itemdate = item.Ordertime;
+
+                        if (item.Id == ViewBag.userid && item.Status == 1)
+                        {
+                            <tr>
+                                <td>
+                                    @* @Html.DisplayFor(modelItem => item.BillCode) *@
+                                    @{
+                                        string encodedBillCode = Uri.EscapeDataString(item.BillCode);
+                                        string qrCodeImage = $"https://api.qrserver.com/v1/create-qr-code/?data={encodedBillCode}&size=200x200";
+                                        ViewBag.QRCodeImage = qrCodeImage;
+                                    }
+
+                                    <img src="@ViewBag.QRCodeImage" alt="QR Code" width="50px" height="50px" />
+
+                                </td>
+                                <td>
+                                    Pending
+                                    @foreach (var order in ViewBag.orders)
+                                    {
+
+                                        if (order.Id == ViewBag.userid && order.Type == 1 && order.OrderCode == item.BillCode)
+                                        {
+
+                                            <img src="/@order.Product.ProductIamge" width="50px" height="50px" />
+
+                                        }
+                                        else if (order.Id == ViewBag.userid && order.Type == 2 && order.OrderCode == item.BillCode)
+                                        {
+
+                                            <img src="/@order.Product.ProductIamge" style="width: 50px; height: 50px; opacity: 0.5;" />
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    <style>
+                                        .Modal-custom {
+                                            background-color: #084c61;
+                                            color: white;
+                                        }
+                                    </style>
+
+                                    <a asp-action="OrderedDetail" class="text-decoration-none" asp-route-id="@item.BillId">details</a>
+
+                                    @if (DateTime.Now <= itemdate)
+                                    {
+                                        <button type="button" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalChoice">D</button>
+                                        <p> @itemdate  : After Accept you Order</p>
+
+                                        <!-- Modal -->
+                                        <div class="modal modal-alert  py-5" style="margin-top :100px;" tabindex="-1" role="dialog" id="modalChoice">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content my-5  Modal-custom rounded-3 shadow">
+                                                    <div class="modal-body p-4 text-center">
+                                                        <h5 class="mb-0">Order Comformation</h5>
+                                                        <p class="mb-0">You can always Comfirm Order</p>
+                                                    </div>
+                                                    <div class="modal-footer flex-nowrap p-0">
+                                                        <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-end text-white" data-bs-dismiss="modal">Cancel</button>
+                                                        <a asp-action="OrderedDelete" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 text-white" asp-route-id="@item.BillId">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-danger disabled">Delete</a>
+
+                                    }
+
+
+                                </td>
+                            </tr>
+                        }
+                        else if (item.Id == ViewBag.userid && item.Status == 5)
+                        {
+                            <tr>
+                                <td>
+                                    @* @Html.DisplayFor(modelItem => item.BillCode) *@
+                                    @{
+                                        string encodedBillCode = Uri.EscapeDataString(item.BillCode);
+                                        string qrCodeImage = $"https://api.qrserver.com/v1/create-qr-code/?data={encodedBillCode}&size=200x200";
+                                        ViewBag.QRCodeImage = qrCodeImage;
+                                    }
+                                    <img src="@ViewBag.QRCodeImage" alt="QR Code" width="50px" height="50px" />
+
+                                </td>
+                                <td>
+
+                                    Cancel
+                                    @foreach (var order in ViewBag.orders)
+                                    {
+                                        if (order.Id == ViewBag.userid && order.Type == 2 && order.OrderCode == item.BillCode)
+                                        {
+
+                                            <img src="/@order.Product.ProductIamge" style="width: 50px; height: 50px; opacity: 0.5;" />
+                                        }
+                                    }
+                                </td>
+                                <td>
+
+
+                                    <a asp-action="OrderedDetail" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" asp-route-id="@item.BillId">Details</a>
+
+                                </td>
+                            </tr>
+                        }
+                        else if (item.Id == ViewBag.userid && item.Status == 3)
+                        {
+                            <tr>
+                                <td>
+                                    @* @Html.DisplayFor(modelItem => item.BillCode) *@
+                                    @{
+                                        string encodedBillCode = Uri.EscapeDataString(item.BillCode);
+                                        string qrCodeImage = $"https://api.qrserver.com/v1/create-qr-code/?data={encodedBillCode}&size=200x200";
+                                        ViewBag.QRCodeImage = qrCodeImage;
+                                    }
+                                    <img src="@ViewBag.QRCodeImage" alt="QR Code" width="50px" height="50px" />
+
+                                </td>
+                                <td>
+
+                                    Delivery
+                                    @foreach (var order in ViewBag.orders)
+                                    {
+                                        if (order.Id == ViewBag.userid && order.Type == 1 && order.OrderCode == item.BillCode)
+                                        {
+
+                                            <img src="/@order.Product.ProductIamge" style="width: 50px; height: 50px;" />
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    @if (DateTime.Now <= itemdate)
+                                    {
+                                        <p>@itemdate is date order recieved</p>
+                                    }
+                                    else
+                                    {
+
+                                    <a class="btn rounded-2" asp-action="OrderRecieved" asp-route-id="@item.BillId">Recieved</a>
+
+                                    }
+                                    <a asp-action="OrderedDetail" asp-route-id="@item.BillId">Details</a>
+                                </td>
+                            </tr>
+                        }
+
+
+
+                    }
+
+                </tbody>
+            </table>
+
+
+    </div>
+</div>
+</div>
+</div>
+
+
+<div class="container">
+    <div class="row mb-5">
+        <div class="sit">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Bill Code
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @* @{
+                    var date = DateTime.Now.ToString();
+
+                    }
+                    *@
+                    @foreach (var item in Model)
+                    {
+                        var itemdate = item.Ordertime;
+
+                        if (item.Id == ViewBag.userid && item.Status == 1)
+                        {
+                            <tr>
+                                <td>
+                                    @* @Html.DisplayFor(modelItem => item.BillCode) *@
+                                    @{
+                                        string encodedBillCode = Uri.EscapeDataString(item.BillCode);
+                                        string qrCodeImage = $"https://api.qrserver.com/v1/create-qr-code/?data={encodedBillCode}&size=200x200";
+                                        ViewBag.QRCodeImage = qrCodeImage;
+                                    }
+
+                                    <img src="@ViewBag.QRCodeImage" alt="QR Code" width="50px" height="50px" />
+
+                                </td>
+                                <td>
+                                    Pending
+                                    @foreach (var order in ViewBag.orders)
+                                    {
+
+                                        if (order.Id == ViewBag.userid && order.Type == 1 && order.OrderCode == item.BillCode)
+                                        {
+
+                                            <img src="/@order.Product.ProductIamge" width="50px" height="50px" />
+
+                                        }
+                                        else if (order.Id == ViewBag.userid && order.Type == 2 && order.OrderCode == item.BillCode)
+                                        {
+
+                                            <img src="/@order.Product.ProductIamge" style="width: 50px; height: 50px; opacity: 0.5;" />
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    <style>
+                                        .Modal-custom {
+                                            background-color: #084c61;
+                                            color: white;
+                                        }
+                                    </style>
+
+                                    <a asp-action="OrderedDetail" class="text-decoration-none" asp-route-id="@item.BillId">details</a>
+
+                                    @if (DateTime.Now <= itemdate)
+                                    {
+                                        <button type="button" class="text-decoration-none btn " data-bs-toggle="modal" data-bs-target="#modalChoice">Cancel</button>
+                                        <p> @DateTime.Now.ToString()  : After Accept you Order</p>
+
+                                        <!-- Modal -->
+                                        <div class="modal modal-alert  py-5" style="margin-top :100px;" tabindex="-1" role="dialog" id="modalChoice">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content my-5  Modal-custom rounded-3 shadow">
+                                                    <div class="modal-body p-4 text-center">
+                                                        <h5 class="mb-0">Order Comformation</h5>
+                                                        <p class="mb-0">You can always Comfirm Order</p>
+                                                    </div>
+                                                    <div class="modal-footer flex-nowrap p-0">
+                                                        <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-end text-white" data-bs-dismiss="modal">Cancel</button>
+                                                        <a asp-action="OrderedDelete" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 text-white" asp-route-id="@item.BillId">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-danger disabled">Delete</a>
+
+                                    }
+
+
+                                </td>
+                            </tr>
+                        }
+                        else if (item.Id == ViewBag.userid && item.Status == 5)
+                        {
+                            <tr>
+                                <td>
+                                    @* @Html.DisplayFor(modelItem => item.BillCode) *@
+                                    @{
+                                        string encodedBillCode = Uri.EscapeDataString(item.BillCode);
+                                        string qrCodeImage = $"https://api.qrserver.com/v1/create-qr-code/?data={encodedBillCode}&size=200x200";
+                                        ViewBag.QRCodeImage = qrCodeImage;
+                                    }
+                                    <img src="@ViewBag.QRCodeImage" alt="QR Code" width="50px" height="50px" />
+
+                                </td>
+                                <td>
+
+                                    Cancel
+                                    @foreach (var order in ViewBag.orders)
+                                    {
+                                        if (order.Id == ViewBag.userid && order.Type == 2 && order.OrderCode == item.BillCode)
+                                        {
+
+                                            <img src="/@order.Product.ProductIamge" style="width: 50px; height: 50px; opacity: 0.5;" />
+                                        }
+                                    }
+                                </td>
+                                <td>
+
+
+                                    <a asp-action="OrderedDetail" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" asp-route-id="@item.BillId">Details</a>
+
+                                </td>
+                            </tr>
+                        }
+                        else if (item.Id == ViewBag.userid && item.Status == 3)
+                        {
+                            <tr>
+                                <td>
+                                    @* @Html.DisplayFor(modelItem => item.BillCode) *@
+                                    @{
+                                        string encodedBillCode = Uri.EscapeDataString(item.BillCode);
+                                        string qrCodeImage = $"https://api.qrserver.com/v1/create-qr-code/?data={encodedBillCode}&size=200x200";
+                                        ViewBag.QRCodeImage = qrCodeImage;
+                                    }
+                                    <img src="@ViewBag.QRCodeImage" alt="QR Code" width="50px" height="50px" />
+
+                                </td>
+                                <td>
+
+                                    Delivery
+                                    @foreach (var order in ViewBag.orders)
+                                    {
+                                        if (order.Id == ViewBag.userid && order.Type == 1 && order.OrderCode == item.BillCode)
+                                        {
+
+                                            <img src="/@order.Product.ProductIamge" style="width: 50px; height: 50px;" />
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    @if (DateTime.Now <= itemdate)
+                                    {
+                                        <p>@itemdate is date order recieved</p>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-success " asp-controller="Users" asp-action="OrderRecieved" asp-route-id="@item.BillId">Recieved</a>
+
+                                    }
+                                    <a asp-action="OrderedDetail" asp-route-id="@item.BillId">Details</a>
+                                </td>
+                            </tr>
+                        }
+
+
+
+                    }
+
+                </tbody>
+            </table>
+
+
+
+</div>
+</div>
+</div>

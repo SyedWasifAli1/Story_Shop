@@ -1,0 +1,32 @@
+﻿@model Book_kharido.Models.User
+
+@{
+    ViewData["Title"] = "Otp";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 login-container ">
+            <h2 class="text-center mb-4"></h2>
+            <form asp-action="Otp" asp-controller="Home" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <input type="text" asp-for="OTP" name="otp" class="form-control" placeholder="Enter 6-digit OTP" pattern="\d{6}" required />
+                    <span asp-validation-for="OTP" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn form_button my-2 btn-block">Verify  OTP</button> 
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

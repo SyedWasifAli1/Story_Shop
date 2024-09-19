@@ -1,0 +1,268 @@
+﻿@model Book_kharido.Models.User
+
+
+<!-- Start Hero Section -->
+<div class="hero">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-5">
+				<div class="intro-excerpt">
+					<h1>Checkout</h1>
+				</div>
+			</div>
+			<div class="col-lg-7">
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Hero Section -->
+
+	@{
+		decimal totalsum = 0;
+	}
+	<div class="untree_co-section">
+		<div class="container">
+		
+			<div class="row">
+	
+
+				<div class="col-md-12 ">
+
+					<div class="row">
+						<div class="col-md-12">
+							<h2 class="h3 mb-3 text-black">Your Order</h2>
+							<div class="p-3 p-lg-5 border bg-white">
+								<table class="table site-block-order-table mb-5">
+									<thead>
+												<th>Product</th>
+												<th>Total</th>
+									</thead>
+									<tbody>
+										
+
+										@foreach (var order in ViewBag.orders)
+										{
+											if (order.Id == ViewBag.userid && order.Type == 0)
+											{
+												var divide = order.Product.ProductPrice / 100;
+												var dicount = order.Product.ProductDiscount * divide;
+												var price = order.Product.ProductPrice - dicount;
+												var ordertotal = @order.Total;
+												totalsum += ordertotal;
+											
+												<tr>
+													<td>@order.Product.ProductName<strong class="mx-2">x</strong> @order.Quantity</td>
+													<td>@ordertotal</td>
+												</tr>
+
+											}
+
+										}
+
+										<tr>
+											<td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
+											<td class="text-black">@totalsum</td>
+										</tr>
+										<tr>
+											<td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+											<td class="text-black font-weight-bold"><strong>@totalsum</strong></td>
+
+
+										</tr>
+									</tbody>
+								</table>
+								<div class="form-group">
+									<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalChoice1">Cash on Delivery</button>
+
+									<div class="modal modal-alert  py-5" tabindex="-1" role="dialog" id="modalChoice1">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content  Modal-custom rounded-3 shadow">
+													<h5 class="text-center"><strong>Billing Detail</strong></h5>
+													<h5 class="text-center"><strong>TOTAL : @totalsum</strong></h5> 
+
+												<div class="modal-body text-center">
+												<form asp-controller="Users" asp-action="UserUpdatecash" method="post">
+
+														<div class="form-group p-3 p-lg-5 row border bg-white">
+															<input type="hidden" asp-for="Id" value="@ViewBag.userid" />
+															<input type="hidden" asp-for="Amount" value="@totalsum" />
+
+															<div class="col-md-12">
+																<label for="c_fname" class="text-black">Phone Number <span class="text-danger">*</span></label>
+															<input asp-for="PhoneNumber" value="" class="form-control" required pattern="[+]?[92]{2}?[-]?[0-9]{3}?[-]?[0-9]{7}" title="Enter a valid Pakistani phone number">
+															<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
+															</div>
+
+															<div class="col-md-12">
+																<label for="c_lname" class="text-black">Street Address <span class="text-danger">*</span></label>
+																<input asp-for="Address" placeholder="Street Address" class="form-control" required/>
+																<span asp-validation-for="Address" class="text-danger"></span>
+															</div>
+															<div class="col-md-12">
+																<label for="c_fname" class="text-black">Country <span class="text-danger">*</span></label>
+															<select asp-for="CountryId" class="form-control form-select" required asp-items="@(new SelectList(ViewBag.CountryName,"Value","Text"))">
+																<option selected disabled>Select a Country</option>
+																</select>
+																<span asp-validation-for="CountryId" class="text-danger"></span>
+															</div>
+															<div class="col-md-12">
+																<label for="c_lname" class="text-black">City <span class="text-danger">*</span></label>
+															<select asp-for="CityId" class="form-control form-select" required asp-items="@(new SelectList(ViewBag.CityName,"Value","Text"))">
+																<option selected disabled>Select a City</option>
+																</select>
+																<span asp-validation-for="CityId" class="text-danger"></span>
+															</div>
+														<div class="col-md-12">
+															<label for="c_lname" class="text-black">Town <span class="text-danger">*</span></label>
+															<select asp-for="TownsAId" class="form-control form-select" required >
+																<option selected disabled>Select a City</option>
+																@foreach (var item in ViewBag.TownName)
+																{
+
+																	<option value="@item.TownsAId">@item.TownsAId  @item.TownName <span>  @item.KoloMeter km</span>/<span>Rs: @item.DeliveryFee</span> </option>
+																}
+															</select>
+
+
+																	@* <select asp-for="TownsAId" class="form-control form-select" required asp-items="@(new SelectList(ViewBag.TownName,"Value","Text"))">
+																<option selected disabled>Select a Town</option>
+															</select>
+															<span asp-validation-for="TownsAId" class="text-danger"></span>
+ *@
+														</div>
+
+														</div>
+
+														<div class="modal-footer flex-nowrap py-4">
+															<a class="btn btn-sm btn-link fs-6 text-decoration-none  me-3 rounded-0 border-end text-white" data-bs-dismiss="modal">Cancel</a>
+															<button class="btn btn-sm btn-link fs-6 text-decoration-none  m-0 rounded-0 text-white" type="submit">Confirm</button>
+														</div>
+
+
+													</form>
+
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalChoice">Online Payment</button>
+
+								<div class="modal modal-alert  " tabindex="-1" role="dialog" id="modalChoice">
+									<div class="modal-dialog  " role="document" >
+										<div class="modal-content  Modal-custom rounded-3 shadow" >
+											<div class="modal-body p-4 text-center">
+												<h5 class=" py-2"><strong>@totalsum</strong></h5>
+												<form asp-controller="Users" asp-action="Userupdate" method="post">
+
+													<div class="form-group  row border bg-white">
+														<input type="hidden" asp-for="Id" value="@ViewBag.userid" />
+														<input type="hidden" asp-for="Amount" value="@totalsum" />
+
+														<div class="col-md-12">
+															<label for="c_fname" class="text-black">Phone Number <span class="text-danger">*</span></label>
+															<input asp-for="PhoneNumber" value="" class="form-control" />
+															<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
+														</div>
+
+														<div class="col-md-12">
+															<label for="c_lname" class="text-black">Street Address <span class="text-danger">*</span></label>
+															<input asp-for="Address" placeholder="Street Address" class="form-control" />
+															<span asp-validation-for="Address" class="text-danger"></span>
+														</div>
+														<div class="col-md-12">
+															<label for="c_fname" class="text-black">Country <span class="text-danger">*</span></label>
+															<select asp-for="CountryId" class="form-control" asp-items="@(new SelectList(ViewBag.CountryName,"Value","Text"))">
+																<option>Select a Country</option>
+															</select>
+															<span asp-validation-for="CountryId" class="text-danger"></span>
+														</div>
+														<div class="col-md-12">
+															<label for="c_lname" class="text-black">City <span class="text-danger">*</span></label>
+															<select asp-for="CityId" class="form-control" asp-items="@(new SelectList(ViewBag.CityName,"Value","Text"))">
+																<option>Select a City</option>
+															</select>
+															<span asp-validation-for="CityId" class="text-danger"></span>
+
+														</div>	<div class="col-md-12">
+															<label for="c_lname" class="text-black">Town <span class="text-danger">*</span></label>
+															<select asp-for="TownsAId" class="form-control form-select" required>
+																<option selected disabled>Select a City</option>
+																@foreach (var item in ViewBag.TownName)
+																{
+
+																	<option value="@item.TownsAId">@item.TownName <span>@item.KoloMeter</span><span>@item.DeliveryFee</span> </option>
+																}
+															</select>
+
+															<span asp-validation-for="TownsAId" class="text-danger"></span>
+
+														</div>
+													
+													</div>
+
+													<div class="modal-footer flex-nowrap py-1">
+														<a class="btn btn-sm btn-link fs-6 text-decoration-none  me-3 rounded-0 border-end text-white" data-bs-dismiss="modal">Cancel</a>
+														<button class="btn btn-sm btn-link fs-6 text-decoration-none  m-0 rounded-0 text-white" type="submit">Visa</button>
+													</div>
+
+
+												</form>
+
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+
+
+
+							</div>
+
+
+
+
+								
+							</div>
+						</div>
+
+					</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+				</div>
+			</div>
+		</div>
+	</div>

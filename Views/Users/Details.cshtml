@@ -1,0 +1,246 @@
+﻿@model Book_kharido.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div>
+    <div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4 ">
+
+                <img src="/@Html.DisplayFor(model => model.ProductIamge)" class="img-fluid  h-100 d-block mx-auto" alt="Book Cover">
+    </div>
+    <div class="col-md-8">
+                <h1>
+                    @Html.DisplayFor(model => model.ProductName)
+                </h1>
+                <p class="text-muted">@Html.DisplayFor(model => model.Writer.WriteName)</p>
+                <p>
+                    @Html.DisplayFor(model => model.ProductDescription)
+      </p>
+            <div class="mb-2">
+              
+                    @{
+                        int totalStars = 5; // Total number of stars in the rating
+                        double averageRating = ViewBag.AverageRating;
+                        int numberOfFullStars = (int)Math.Floor(averageRating); // Number of full stars
+                        bool isHalfStar = averageRating % 1 >= 0.5; // Check if there’s a half star
+                        int numberOfEmptyStars = totalStars - numberOfFullStars - (isHalfStar ? 1 : 0); // Number of empty stars
+                    }
+
+                    <div class="rating-display">
+                        @for (int i = 0; i < numberOfFullStars; i++)
+                        {
+                            <i class="fa-solid fa-star" style="color: goldenrod; font-size: 20px;"></i>
+                        }
+                        @if (isHalfStar)
+                        {
+                            <i class="fa-solid fa-star-half-stroke" style="color: goldenrod; font-size: 20px;"></i>
+                        }
+                        @for (int i = 0; i < numberOfEmptyStars; i++)
+                        {
+                            <i class="fa-solid fa-star" style="color: gray; font-size: 20px;"></i>
+                        }
+                    </div>
+
+            </div>
+      <ul class="list-unstyled">
+                    <li><strong>Pages:</strong> @Html.DisplayFor(model => model.Page)</li>
+                    <li><strong>Pkr:</strong> <span id="resultDisplay">@ViewBag.result</span></li>
+
+
+                    <li>
+                        <strong>Publisher:</strong>@Html.DisplayFor(model => model.Publisher.PublisherName)
+
+                    </li>
+                    <li style="font-size: small; color: grey;">
+                        <strong>Category:</strong> @Html.DisplayFor(model => model.ProductCategory.ProductCategoryName)
+                    </li>
+      </ul>
+                <form asp-controller="Users" asp-action="AddToCart" method="post">
+                    <input type="hidden" name="productId" value="@ViewBag.Productid" />
+                    <input type="hidden" name="userid" value="@ViewBag.id" />
+
+
+
+                    @if (ViewBag.ProductQty > 0)
+                    {
+                        <div class="row">
+
+                            <div class="col-2 ">
+
+                                <input type="number"
+                                       name="quantity"
+                                       value="1"
+                                       min="1"
+                                       max="@Html.DisplayFor(model => model.ProductQuantity)"
+                                       class="form-control"
+                                       id="quantityInput"
+                                       oninput="updateResult()">
+
+                            
+                            </div> <div class="col">
+                                <button class="btn btn-primary rounded-2">Add to Cart</button>
+                               
+                            </div>
+
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning" role="alert">
+                            No quantity available
+                        </div>
+                    }
+
+
+                </form>
+                <a asp-action="Read" class="product-item" asp-route-id="@ViewBag.ProductId" class="btn btn-primary rounded-2">Read more</a>
+            
+    </div>
+  </div>
+
+  <div class="row bg-light py-4 my-5">
+    <div class="col-12 col-lg-4  p-0">
+                
+
+                <form asp-controller="Users" asp-action="SubmitFeedback" method="post">
+                    <input type="hidden" name="productId" value="@ViewBag.Productid" />
+                    <input type="hidden" name="userId" value="@ViewBag.id" />
+
+                    <div class="c">
+                        <div class="card-body">
+                            <h6>Feedback</h6>
+                            <textarea class="form-control" name="message" id="message" cols="30" rows="5" placeholder="Message"></textarea>
+                        <div class="rating mt-2">
+                            <i class="fa-solid fa-star" data-value="1"></i>
+                            <i class="fa-solid fa-star" data-value="2"></i>
+                            <i class="fa-solid fa-star" data-value="3"></i>
+                            <i class="fa-solid fa-star" data-value="4"></i>
+                            <i class="fa-solid fa-star" data-value="5"></i>
+                        </div>
+                        </div>
+
+                        <!-- Star Rating -->
+                        <input type="hidden" name="rating" id="ratingValue" />
+
+                        <button class="btn float-end rounded-2 btn-dark me-3 ">Send</button>
+                    </div>
+                </form>
+
+    </div>
+    <div class="col-12 col-lg-8">
+      <h2>Reviews</h2>
+      <div class="c "  style="height: 200px; overflow-y: auto;">
+        <div class="card-body">
+                        @foreach (var item in ViewBag.Feedback)
+                        {
+                            if (item.ProductId == ViewBag.Productid)
+                            {
+                                int rating = item.ProductRating;
+                                int fullStars = rating;
+                                bool hasHalfStar = rating % 1 != 0; // Check if there's a half star
+                                int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+
+
+                                <img src="https://tse2.mm.bing.net/th?id=OIP.EVCGXvrjsvMrhfOX3su_FgHaHa&pid=Api&P=0&h=220" class="img-fluid rounded-pill " style="height:30px;">
+                                <strong>User</strong>
+                                <div class="rating-display">
+                                    @for (int i = 0; i < fullStars; i++)
+                                    {
+                                        <i class="fa-solid fa-star" style="color: goldenrod; font-size: 20px;"></i>
+                                    }
+                                    @if (hasHalfStar)
+                                    {
+                                        <i class="fa-solid fa-star-half-stroke" style="color: goldenrod; font-size: 20px;"></i>
+                                    }
+                                    @for (int i = 0; i < emptyStars; i++)
+                                    {
+                                        <i class="fa-solid fa-star" style="color: gray; font-size: 20px;"></i>
+                                    }
+                                </div>
+                                <p class="card-text"> @item.FeedbackMessages </p>
+
+          
+                            }
+                        }
+
+          
+        </div>
+      </div>
+      <!-- More reviews can be added here -->
+    </div>
+
+  </div>
+</div>
+
+   
+        
+</div>
+
+
+
+
+
+
+
+<script>
+    function updateResult() {
+        // Get the quantity input field value
+        var quantity = document.getElementById('quantityInput').value;
+
+        // Assuming ViewBag.result is a base price or similar
+        var basePrice = parseFloat('@ViewBag.result');
+
+        // Calculate the total price
+        var totalPrice = quantity * basePrice;
+
+        // Update the result display
+        document.getElementById('resultDisplay').textContent = totalPrice.toFixed(2);
+    }
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('.rating i');
+        const ratingValue = document.getElementById('ratingValue');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                const rating = this.getAttribute('data-value');
+                ratingValue.value = rating;
+
+                stars.forEach(star => {
+                    if (star.getAttribute('data-value') <= rating) {
+                        star.style.color = 'goldenrod';
+                    } else {
+                        star.style.color = 'gray';
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+<style>
+    .rating {
+        display: flex;
+        cursor: pointer;
+        margin-bottom: 1rem;
+    }
+
+        .rating i {
+            font-size: 20px;
+            color: gray;
+            transition: color 0.2s;
+        }
+
+            .rating i:hover {
+                color: goldenrod;
+            }
+</style>

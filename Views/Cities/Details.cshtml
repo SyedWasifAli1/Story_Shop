@@ -1,0 +1,27 @@
+﻿@model Book_kharido.Models.City
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<partial name="_Partail_Admin" />
+<div class="col-lg-9 col-12 col-lg-9 my-3">
+    <a asp-action="AddProduct" asp-controller="Admin" class="btn float-end rounded-2">+</a>
+
+    <div class="table-container">
+<div>
+    <h4>City</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CityName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CityName)
+        </dd>
+    </dl>
+</div>
+    </div>
+</div>
+</div>
+
